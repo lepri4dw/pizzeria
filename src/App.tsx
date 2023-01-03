@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Route, Routes} from "react-router-dom";
+import Admin from "./containers/Admin/Admin";
+import NewDish from "./containers/NewDish/NewDish";
+import EditDish from "./containers/EditDish/EditDish";
+import User from "./containers/User/User";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path="/admin" element={(<Admin/>)}/>
+        <Route path="/admin/new-dish" element={(<NewDish/>)}/>
+        <Route path="/admin/edit-dish/:id" element={(<EditDish/>)}/>
+        <Route path="/" element={(<User/>)}/>
+      </Routes>
     </div>
   );
 }
