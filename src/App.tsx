@@ -11,6 +11,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/admin" element={(<Admin/>)}/>
+        <Route path="/admin/dishes" element={(<Admin/>)}/>
         <Route path="/admin/new-dish" element={(<NewDish/>)}/>
         <Route path="/admin/edit-dish/:id" element={(<EditDish/>)}/>
         <Route path="/" element={(<User/>)}/>

@@ -28,10 +28,9 @@ export interface CartDish {
 //   phone: string;
 // }
 //
-// export interface ApiOrder {
-//   customer: Customer;
-//   dishes: CartDish[];
-// }
+  export interface ApiOrder {
+    [id: string]: number;
+  }
 //
 // export interface ApiOrdersList {
 //   [id: string]: ApiOrder;

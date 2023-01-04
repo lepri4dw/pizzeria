@@ -28,6 +28,9 @@ export const cartSlice = createSlice({
     resetCart: (state) => {
       state.cartDishes= [];
     },
+    deleteCartDish: (state, action: PayloadAction<string>) => {
+      state.cartDishes = state.cartDishes.filter(cartDish => cartDish.dish.id !== action.payload);
+    },
     updateDishes: (state, {payload: dishes}: PayloadAction<Dish[]>) => {
       const newCartDishes: CartDish[] = [];
 
@@ -51,6 +54,6 @@ export const cartSlice = createSlice({
 
 export const cartReducer = cartSlice.reducer;
 
-export const {addDish, resetCart, updateDishes} = cartSlice.actions;
+export const {addDish, resetCart, updateDishes, deleteCartDish} = cartSlice.actions;
 
 export const selectCartDishes = (state: RootState) => state.cart.cartDishes;

@@ -9,7 +9,7 @@ const AdminNavbar: React.FC = () => {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <NavLink to="/admin" className="nav-link">
+              <NavLink to="/admin/dishes" className="nav-link">
                 Dishes
               </NavLink>
             </li>
