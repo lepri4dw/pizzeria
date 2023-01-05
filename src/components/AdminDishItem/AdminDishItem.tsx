@@ -13,12 +13,10 @@ const AdminDishItem: React.FC<Props> = ({dish, onDelete, deleteLoading}) => {
   return (
       <div className="card w-75 mb-3 fw-bold fs-4">
         <div className="card-body d-flex justify-content-between">
-          <div className="">
             <img
               src={dish.image}
               alt={dish.name} width="150" height="150" className="d-block"
             />
-          </div>
           <span className="my-auto px-1">{dish.name}</span>
           <span className="my-auto px-1">{dish.price} KGZ</span>
           <div className="d-flex my-auto">

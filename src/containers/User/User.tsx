@@ -10,8 +10,9 @@ import Modal from "../../components/Modal/Modal";
 import {TrashFill} from "react-bootstrap-icons";
 import {DELIVERY_PRICE} from "../../constants";
 import {ApiOrder} from "../../types";
-import {createOrder, selectOrderCreateLoading} from "../../store/ordersSlice";
+import {selectOrderCreateLoading} from "../../store/ordersSlice";
 import ButtonSpinner from "../../components/Spinner/ButtonSpinner";
+import {createOrder} from "../../store/ordersThunks";
 
 const User = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ const User = () => {
   const cart = useAppSelector(selectCartDishes);
   const fetchCreateLoading = useAppSelector(selectOrderCreateLoading);
   const [showModal, setShowModal] = useState(false);
-  const cancel = () => setShowModal(prev => !prev);
+  const cancel = () => setShowModal(false);
   const total = cart.reduce((sum, cartDish) => {
     return sum + cartDish.amount * cartDish.dish.price;
   }, 0);
@@ -38,6 +39,13 @@ const User = () => {
   useEffect(() => {
     dispatch(fetchDishes());
   }, [dispatch]);
+  console.log(dishes);
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      cancel();
+    }
+  }, [cart])
 
   return (
     <>
@@ -71,7 +79,7 @@ const User = () => {
           <div className="container mb-3">
             <div className="d-flex justify-content-between mt-3 fw-bold fs-2">
               <span>Total order price: {total} KGZ</span>
-              <button className="btn btn-primary" onClick={cancel}>Checkout</button>
+              <button className="btn btn-primary" onClick={() => setShowModal(true)}>Checkout</button>
             </div>
           </div>
         </div>
@@ -91,7 +99,6 @@ const User = () => {
           <div>Delivery: <span className="ms-4 fw-bold">{DELIVERY_PRICE} KGZ</span> </div>
           <div>Total: <span className=" ms-4 fw-bold">{total + DELIVERY_PRICE} KGZ</span></div>
         </div>
-
         <div className="d-flex justify-content-end mb-2">
           <button className="btn btn-danger me-2" onClick={cancel}>Cancel</button>
           <button className="btn btn-primary me-3" onClick={newOrderCreate} disabled={fetchCreateLoading}>{fetchCreateLoading && <ButtonSpinner/>}Order</button>
