@@ -23,11 +23,17 @@ export interface CartDish {
 }
 
 export interface ApiOrder {
-  [id: string]: number
+  dishes: {
+    [id: string]: number
+  },
+  customer: {
+    phone: string;
+    address: string;
+    name: string
+  }
 }
 
-export interface OrderMutation {
-  dishes: ApiOrder,
+export interface OrderMutation extends ApiOrder{
   orderId: string;
 }
 
@@ -45,4 +51,9 @@ export interface OrderDish {
 export interface Order {
   dishes: OrderDish[],
   orderId: string,
+  customer: {
+    phone: string;
+    address: string;
+    name: string
+  }
 }

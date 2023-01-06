@@ -20,6 +20,11 @@ const User = () => {
   const fetchLoading = useAppSelector(selectDishesFetchLoading);
   const cart = useAppSelector(selectCartDishes);
   const fetchCreateLoading = useAppSelector(selectOrderCreateLoading);
+  const [customer, setCustomer] = useState({
+    name: '',
+    address: '',
+    phone: '',
+  });
   const [showModal, setShowModal] = useState(false);
   const cancel = () => setShowModal(false);
   const total = cart.reduce((sum, cartDish) => {
@@ -27,14 +32,28 @@ const User = () => {
   }, 0);
 
   const newOrderCreate = async () => {
-    const order: ApiOrder = {};
+    const order: ApiOrder = {customer, dishes: {}};
     cart.forEach(cartDish => {
-      order[cartDish.dish.id] = cartDish.amount;
+      order.dishes[cartDish.dish.id] = cartDish.amount;
     });
     await dispatch(createOrder(order));
     await dispatch(resetCart());
     await cancel();
-  }
+    setCustomer({
+      name: '',
+      address: '',
+      phone: ''
+    })
+  };
+
+  const customerChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
+
+    setCustomer(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   useEffect(() => {
     dispatch(fetchDishes());
@@ -98,6 +117,35 @@ const User = () => {
           ))}
           <div>Delivery: <span className="ms-4 fw-bold">{DELIVERY_PRICE} KGZ</span> </div>
           <div>Total: <span className=" ms-4 fw-bold">{total + DELIVERY_PRICE} KGZ</span></div>
+        </div>
+        <div className="px-3">
+          <div className="form-group">
+            <label htmlFor="name">Client name</label>
+            <input
+              id="name" type="text" name="name"
+              className="form-control"
+              value={customer.name}
+              onChange={customerChanged}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">Address</label>
+            <input
+              id="address" type="text" name="address"
+              className="form-control"
+              value={customer.address}
+              onChange={customerChanged}
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="phone">Phone</label>
+            <input
+              id="phone" type="text" name="phone"
+              className="form-control"
+              value={customer.phone}
+              onChange={customerChanged}
+            />
+          </div>
         </div>
         <div className="d-flex justify-content-end mb-2">
           <button className="btn btn-danger me-2" onClick={cancel}>Cancel</button>

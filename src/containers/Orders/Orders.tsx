@@ -39,11 +39,25 @@ const Orders = () => {
       <AdminNavbar/>
       <div className="container">
         <h4 className="mb-4">Orders</h4>
-        <div className="d-flex justify-content-between flex-wrap">
+        <div className="">
           {ordersLoading ? <Spinner/> : orders.map(order => (
-            <div key={order.orderId} className="card mb-3 column-width">
+            <div key={order.orderId} className="card mb-3 order-width">
               <div className="card-body d-flex justify-content-between">
-                <div className="w-50">
+                <div className="mb-2">
+                  <div className="d-flex justify-content-between">
+                    <span className="me-3">Name: </span>
+                    <b>{order.customer.name}</b>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <span className="me-3">Address: </span>
+                    <b>{order.customer.address}</b>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <span className="">Phone: </span>
+                    <b>{order.customer.phone}</b>
+                  </div>
+                </div>
+                <div className="dishes-width">
                   {order.dishes.map(dish => (
                     <div key={dish.id} className="d-flex justify-content-between">
                       <span>{dish.amount} x {dish.name}</span>

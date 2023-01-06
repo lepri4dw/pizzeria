@@ -22,8 +22,9 @@ export const fetchOrders = createAsyncThunk(
       newOrders = Object.keys(orders).map(id => {
         const order = orders[id];
         return {
-          dishes: order,
-          orderId: id
+          dishes: order.dishes,
+          orderId: id,
+          customer: order.customer,
         }
       })
     }
@@ -46,7 +47,8 @@ export const fetchOrders = createAsyncThunk(
         });
         return {
           dishes: lastDishes,
-          orderId: order.orderId
+          orderId: order.orderId,
+          customer: order.customer
         };
       })
     }
