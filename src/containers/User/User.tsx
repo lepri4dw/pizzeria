@@ -149,7 +149,7 @@ const User = () => {
         </div>
         <div className="d-flex justify-content-end mb-2">
           <button className="btn btn-danger me-2" onClick={cancel}>Cancel</button>
-          <button className="btn btn-primary me-3" onClick={newOrderCreate} disabled={fetchCreateLoading}>{fetchCreateLoading && <ButtonSpinner/>}Order</button>
+          <button className="btn btn-primary me-3" onClick={newOrderCreate} disabled={fetchCreateLoading || !customer.name || !customer.phone || !customer.address}>{fetchCreateLoading && <ButtonSpinner/>}Order</button>
         </div>
       </Modal>
     </>
